@@ -1,7 +1,7 @@
 # Prometheus Grafana Learning
 An experimental setup for learning common monitoring tools used in DevOps - Prometheus & Grafana
 
-# Environment Setup
+## Environment Setup
 ```sh
 # Clone repository to local and change directory
 git clone https://github.com/keezw/prometheus-grafana-learning.git
