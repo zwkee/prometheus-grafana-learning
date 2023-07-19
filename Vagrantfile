@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
   # More Examples : "ubuntu/bionic64","ubuntu/xenial64","ubuntu/xenial64","centos/7" ......
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-22.04"
 
   # Configure the virtual machine to use proxy if needed. vagrant-proxyconf plugin will need to be installed.
   #   if Vagrant.has_plugin?("vagrant-proxyconf")
@@ -48,13 +48,13 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network" , ip="192.168.0.101"
   
   # you can add Maximum boot time for your VM. By default it is 300 seconds
-  config.vm.boot_time_out= "300"
+  # config.vm.boot_timeout= "300"
 
   config.vm.define "prometheus_server" do |prometheus_server|
     prometheus_server.vm.hostname = "prometheus-server"
-    prometheus_server.vm.box = "bento/ubuntu-20.04"
-    prometheus_server.vm.network :private_network, ip: "192.168.0.101"
-    prometheus_server.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
+    prometheus_server.vm.box = "bento/ubuntu-22.04"
+    prometheus_server.vm.network :private_network, ip: "192.168.1.101"
+    # prometheus_server.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
     # prometheus_server.vm.provision "shell", path: "<absolute path to provision.sh>"
   end
 
@@ -75,10 +75,10 @@ Vagrant.configure("2") do |config|
     vb.gui = true
   
     # put up the amount of memory you want to provide to your VM
-    vb.memory = "4096" 
+    vb.memory = 4096
 
     # put up the number of CPU's you want to provide to your VM
-    vb.cpu= "2"
+    vb.cpus = 2
   end
 
 
