@@ -48,14 +48,14 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network" , ip="192.168.0.101"
   
   # you can add Maximum boot time for your VM. By default it is 300 seconds
-  # config.vm.boot_timeout= "300"
+  config.vm.boot_timeout= 600
 
   config.vm.define "prometheus_server" do |prometheus_server|
     prometheus_server.vm.hostname = "prometheus-server"
     prometheus_server.vm.box = "bento/ubuntu-22.04"
     prometheus_server.vm.network :private_network, ip: "192.168.1.101"
     # prometheus_server.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
-    # prometheus_server.vm.provision "shell", path: "<absolute path to provision.sh>"
+    prometheus_server.vm.provision "shell", path: "provision.sh"
   end
 
   # Folder Settings
@@ -66,13 +66,14 @@ Vagrant.configure("2") do |config|
   # The second argument is the path on the guest to mount the folder. And the optional third argument
   # is a set of non-required options.
   # config.vm.synced_folder ".", "/vagrant_data", :nfs => { :mount_options => ["dmode=777", "fmode=666"] } 
+  config.vm.synced_folder ".", "/home/vagrant/provisioning-files"
 
   # Provider-specific configuration so you can fine-tune various backing providers for Vagrant.
   # These expose provider-specific options.
   # Example for VirtualBox:
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
-    vb.gui = true
+    vb.gui = false
   
     # put up the amount of memory you want to provide to your VM
     vb.memory = 4096

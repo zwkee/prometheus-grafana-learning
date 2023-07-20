@@ -1,0 +1,34 @@
+---
+- name: Install k3s
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: vagrant
+  vars:
+    kubeconfig: ~/.kube/config
+
+  tasks:
+  - name: Install k3s
+    shell: curl -sfL https://get.k3s.io | sh -
+
+  - name: Export kubeconfig
+    lineinfile:
+      path: ~/.profile
+      line: export KUBECONFIG={{ kubeconfig }}
+
+  - name: Create .kube directory
+    file:
+      path: ~/.kube
+      state: directory
+
+  - name: Write kubeconfig
+    shell: |
+      source ~/.profile
+      sudo k3s kubectl config view --raw > {{ kubeconfig }}
+    args:
+      executable: /bin/bash
+
+  - name: Update file permission
+    file:
+      path: "{{ kubeconfig }}"
+      mode: "0600"
