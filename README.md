@@ -97,6 +97,8 @@ As mentioned in the introduction, there are a couple of tools required for the l
 
 5. Visit the Prometheus and Grafana dashboards on the host machine at [http://localhost:3000](http://localhost:3000) and [http://localhost:9090](http://localhost:9090). Login the Grafana dashboard using the credentials obtained from step 4.
 
+6. Add Prometheus as data source to Grafana using `http://prometheus-server-ext.default.svc` and import a Kubernetes dashboard to get started e.g. [315](https://grafana.com/grafana/dashboards/315-kubernetes-cluster-monitoring-via-prometheus/), [13332](https://grafana.com/grafana/dashboards/13332-kube-state-metrics-v2/).
+
 ### Clean up environment
 
 1. Change directory into the cloned repo
