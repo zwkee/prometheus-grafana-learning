@@ -49,8 +49,6 @@
 
 Refer to the section below on some of the tools used to setup the local environment. Vagrant and VirtualBox may not be required if the setup is expected to run on the host machine, but that will require Ansible to be installed and manually running the playbooks to spin up the Prometheus and Grafana resources in Kubernetes.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### Built With
 
 * [![Ansible][Ansible-shield]][Ansible-url]
