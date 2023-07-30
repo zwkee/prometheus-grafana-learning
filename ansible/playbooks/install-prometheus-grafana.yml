@@ -1,0 +1,49 @@
+---
+- name: Install helm
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: vagrant
+
+  tasks:
+  - name: Install helm
+    become_user: root
+    unarchive:
+      src: https://get.helm.sh/helm-v3.12.2-linux-amd64.tar.gz
+      dest: /usr/local/bin
+      extra_opts: "--strip-components=1"
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: true
+    args:
+      creates: /usr/local/bin/helm
+
+  - name: Add and update helm repositories
+    shell: |
+      helm repo add stable https://charts.helm.sh/stable --force-update
+      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+      helm repo add grafana https://grafana.github.io/helm-charts
+      helm repo update
+
+  - name: Install Prometheus
+    command: helm install prometheus prometheus-community/prometheus
+
+  - name: Install Grafana
+    command: helm install grafana grafana/grafana
+
+  - name: Install snap
+    become_user: root
+    command: snap install yq
+
+  - name: Get Grafana credentials
+    become: no
+    shell: "kubectl get secret grafana -o yaml | yq '.data.admin-user' | openssl base64 -d | awk '{print \"Username: \"$1}' && kubectl get secret grafana -o yaml | yq '.data.admin-password' | openssl base64 -d | awk '{print \"Password: \"$1}'"
+    register: grafana_credentials
+
+  - name: Write credentials to file
+    lineinfile:
+      path: ~/grafana-creds.yml
+      line: '{{ grafana_credentials.stdout }}'
+      state: present
+      create: yes

@@ -7,5 +7,7 @@ sudo apt install -y ansible
 
 # Setup k3s
 ansible-playbook provisioning-files/ansible/playbooks/install-k3s.yml
-# Install helm and prometheus
-ansible-playbook provisioning-files/ansible/playbooks/install-helm.yml
+# Install helm, prometheus, grafana
+ansible-playbook provisioning-files/ansible/playbooks/install-prometheus-grafana.yml
+# Create NodePort services
+ansible-playbook provisioning-files/ansible/playbooks/setup-nodeport.yml

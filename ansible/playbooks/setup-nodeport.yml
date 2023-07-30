@@ -1,0 +1,15 @@
+---
+- name: Setup NodePorts
+  hosts: localhost
+  connection: local
+  become_user: vagrant
+  vars:
+    prometheus_svc_file_path: ../../kubernetes/prometheus-service.yml
+    grafana_svc_file_path: ../../kubernetes/grafana-service.yml
+
+  tasks:
+  - name: Create prometheus service
+    shell: kubectl apply -f {{ prometheus_svc_file_path }}
+
+  - name: Create grafana service
+    shell: kubectl apply -f {{ grafana_svc_file_path }}

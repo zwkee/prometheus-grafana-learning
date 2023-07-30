@@ -54,7 +54,8 @@ Vagrant.configure("2") do |config|
     prometheus_server.vm.hostname = "prometheus-server"
     prometheus_server.vm.box = "bento/ubuntu-22.04"
     prometheus_server.vm.network :private_network, ip: "192.168.1.101"
-    # prometheus_server.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
+    prometheus_server.vm.network "forwarded_port", guest: 30090, host: 9090, host_ip: "127.0.0.1"
+    prometheus_server.vm.network "forwarded_port", guest: 30091, host: 3000, host_ip: "127.0.0.1"
     prometheus_server.vm.provision "shell", path: "provision.sh"
   end
 
