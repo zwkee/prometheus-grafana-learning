@@ -27,7 +27,7 @@
       helm repo update
 
   - name: Install Prometheus
-    command: helm install prometheus prometheus-community/prometheus
+    command: helm install prometheus -f ~/provisioning-files/prometheus/values.yml prometheus-community/prometheus
 
   - name: Install Grafana
     command: helm install grafana grafana/grafana

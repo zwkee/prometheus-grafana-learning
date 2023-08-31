@@ -1,0 +1,35 @@
+serverFiles:
+  alerting_rules.yml:
+    groups:
+    - name: node-alerts
+      rules:
+      - alert: HighDiskUsage
+        expr: 100 * (1 - (node_filesystem_free_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"})) > 80
+        for: 1m
+        labels:
+          severity: critical
+
+alertmanager:
+  extraSecretMounts:
+    - name: secret-files
+      mountPath: /etc/secrets
+      subPath: ""
+      secretName: alertmanager-secrets
+      readOnly: true
+
+  config:
+    receivers:
+      - name: default-receiver
+        slack_configs:
+          - channel: '#prometheus'
+            api_url_file: /etc/secrets/slack-api-url
+            send_resolved: true
+    route:
+      group_wait: 10s
+      group_interval: 5m
+      receiver: default-receiver
+      repeat_interval: 3h
+      routes:
+      - match:
+          severity: critical
+        receiver: 'default-receiver'

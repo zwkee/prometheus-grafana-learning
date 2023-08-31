@@ -99,6 +99,15 @@ As mentioned in the introduction, there are a couple of tools required for the l
 
 6. Add Prometheus as data source to Grafana using `http://prometheus-server-ext.default.svc` and import a Kubernetes dashboard to get started e.g. [315](https://grafana.com/grafana/dashboards/315-kubernetes-cluster-monitoring-via-prometheus/), [13332](https://grafana.com/grafana/dashboards/13332-kube-state-metrics-v2/).
 
+### Slack Integration
+
+To try out Slack notification, create a file `slack.yml` in the directory `ansible/vars/secrets/` before spinning up the virtual machine. In the `slack.yml` file, provide the slack api url. For example:
+
+```yaml
+---
+slack_api_url: <replace with your webhook url>
+```
+
 ### Clean up environment
 
 1. Change directory into the cloned repo

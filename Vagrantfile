@@ -56,6 +56,7 @@ Vagrant.configure("2") do |config|
     prometheus_server.vm.network :private_network, ip: "192.168.1.101"
     prometheus_server.vm.network "forwarded_port", guest: 30090, host: 9090, host_ip: "127.0.0.1"
     prometheus_server.vm.network "forwarded_port", guest: 30091, host: 3000, host_ip: "127.0.0.1"
+    prometheus_server.vm.network "forwarded_port", guest: 30092, host: 9093, host_ip: "127.0.0.1"
     prometheus_server.vm.provision "shell", path: "provision.sh"
   end
 

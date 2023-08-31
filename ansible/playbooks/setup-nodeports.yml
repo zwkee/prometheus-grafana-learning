@@ -6,6 +6,7 @@
   vars:
     prometheus_svc_file_path: ../../kubernetes/prometheus-service.yml
     grafana_svc_file_path: ../../kubernetes/grafana-service.yml
+    alert_manager_svc_file_path: ../../kubernetes/alert-manager-service.yml
 
   tasks:
   - name: Create prometheus service
@@ -13,3 +14,6 @@
 
   - name: Create grafana service
     shell: kubectl apply -f {{ grafana_svc_file_path }}
+
+  - name: Create alert manager service
+    shell: kubectl apply -f {{ alert_manager_svc_file_path }}
